@@ -12,6 +12,7 @@
     "typecheck:web": "vue-tsc --noEmit -p tsconfig.web.json --composite false",
     "typecheck": "npm run typecheck:node && npm run typecheck:web",
     "start": "electron-vite preview",
+    "dev:back": "node ./dev/start.js",
     "dev": "electron-vite dev",
     "build": "npm run typecheck && electron-vite build",
     "postinstall": "electron-builder install-app-deps",
@@ -23,6 +24,7 @@
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.0",
     "@electron-toolkit/utils": "^3.0.0",
+    "@prisma/client": "^5.14.0",
     "electron-updater": "^6.1.7"
   },
   "devDependencies": {
@@ -40,6 +42,8 @@
     "eslint": "^8.56.0",
     "eslint-plugin-vue": "^9.20.1",
     "prettier": "^3.2.4",
+    "prisma": "^5.14.0",
+    "shelljs": "^0.8.5",
     "typescript": "^5.3.3",
     "vite": "^5.0.12",
     "vue": "^3.4.15",

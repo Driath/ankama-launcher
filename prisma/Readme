@@ -1,0 +1,10 @@
+# upgrade model
+npx prisma migrate dev --name your-name
+
+# types
+To generate the Prisma Client, which includes the TypeScript types, run the following command:
+
+npx prisma generate
+
+# studio
+npx prisma studio

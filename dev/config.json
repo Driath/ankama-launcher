@@ -1,0 +1,22 @@
+{
+    "onStart": [
+      {
+        "relativePath": "./../static/",
+        "command": "docker-compose up"
+      },
+      {
+        "relativePath": "./../database/",
+        "command": "docker-compose up"
+      }
+    ],
+    "onQuit": [
+      {
+        "relativePath": "./../static/",
+        "command": "docker-compose down"
+      },
+      {
+        "relativePath": "./../database/",
+        "command": "docker-compose down"
+      }
+    ]
+  }
