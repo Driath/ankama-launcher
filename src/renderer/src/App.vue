@@ -1,27 +1,53 @@
 <script setup lang="ts">
-import Versions from './components/Versions.vue'
+import { ref } from 'vue'
+import Layout from './components/layout/layout.vue'
+import LeftBar from './components/left-bar/left-bar.vue'
+import Box from './components/box/box.vue'
+import PreviewList from './components/game/preview-list/preview-list.vue';
 
-// const ipcHandle = () => window.electron.ipcRenderer.send('ping')
+const leftUpItems = ref([
+  {
+    title: 'Accueil',
+    icon: 'home',
+    active: true
+  },
+  {
+    title: 'Découverte',
+    icon: 'search'
+  },
+  {
+    title: 'Récent',
+    icon: 'backward'
+  },
+  {
+    title: 'Sauvegarde',
+    icon: 'save'
+  },
+  {
+    title: 'Téléchargement',
+    icon: 'download'
+  }
+])
+
+const leftdownItems = ref([
+  {
+    title: 'Paramètres',
+    icon: 'cog'
+  },
+  {
+    title: 'Se déconnecter',
+    icon: 'sign-out-alt'
+  }
+])
 </script>
 
 <template>
-  <h1 className="text-3xl font-bold underline">Hello world!</h1>
-  <!-- <img alt="logo" class="logo" src="./assets/electron.svg" />
-  <div class="creator">Powered by electron-vite</div>
-  <div class="text">
-    Build an Electron app with
-    <span class="vue">Vue</span>
-    and
-    <span class="ts">TypeScript</span>
-  </div>
-  <p class="tip">Please try pressing <code>F12</code> to open the devTool</p>
-  <div class="actions">
-    <div class="action">
-      <a href="https://electron-vite.org/" target="_blank" rel="noreferrer">Documentation</a>
-    </div>
-    <div class="action">
-      <a target="_blank" rel="noreferrer" @click="ipcHandle">Send IPC</a>
-    </div>
-  </div>
-  <Versions /> -->
+  <Layout>
+    <template #left-bar>
+      <LeftBar :down-items="leftdownItems" :up-items="leftUpItems" />
+    </template>
+    <Box>
+      <PreviewList />
+    </Box>
+  </Layout>
 </template>

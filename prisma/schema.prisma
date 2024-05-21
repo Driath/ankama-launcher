@@ -24,4 +24,5 @@ model Game {
   id  String  @id @default(uuid())
   executableId String @unique
   slug String @unique
+  title String?
 }

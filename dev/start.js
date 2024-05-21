@@ -3,7 +3,7 @@ const path = require('path')
 const fs = require('fs')
 
 // Load the configuration file
-const configPath = path.resolve(__dirname, 'config.json')
+const configPath = path.resolve(__dirname, 'config.json') // check this file to know how does it work
 const config = JSON.parse(fs.readFileSync(configPath, 'utf-8'))
 
 // Function to execute a command

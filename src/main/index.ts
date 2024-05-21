@@ -1,8 +1,10 @@
-import { app, shell, BrowserWindow, ipcMain } from 'electron'
+import { app, shell, BrowserWindow, ipcMain, IpcMainInvokeEvent } from 'electron'
 import { join } from 'path'
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 import icon from '../../resources/icon.png?asset'
 import { PrismaClient } from '@prisma/client'
+
+import { exec } from 'child_process'
 
 function createWindow(): void {
   // Create the browser window.
@@ -51,7 +53,7 @@ app.whenReady().then(() => {
   })
 
   // IPC test
-  ipcMain.on('ping', () => console.log('pong'))
+  ipcMain.on('ping', () => console.log('pong')) // hihi
 
   createWindow()
 
@@ -75,7 +77,6 @@ app.on('window-all-closed', () => {
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.
 
-
 // Load Prisma Client
 const prisma = new PrismaClient()
 
@@ -83,4 +84,35 @@ const prisma = new PrismaClient()
 ipcMain.handle('USER:GET', async () => {
   const users = await prisma.user.findMany()
   return users
+})
+
+ipcMain.handle('GAME:GET', async () => {
+  const games = await prisma.game.findMany({
+    select: {
+      id: true
+    }
+  })
+  return games
+})
+
+ipcMain.handle('GAME:GET/ID', async (event: IpcMainInvokeEvent, id: string) => {
+  const game = await prisma.game.findUnique({
+    where: {
+      id: id
+    }
+  })
+  return game
+})
+
+ipcMain.handle('LAUNCH/ID', (event: IpcMainInvokeEvent, id: string) => {
+  // work only for my case, should be tested for other cases, or maybe another way to do that better
+  const command = 'open -a "Visual Studio Code"'
+
+  exec(command, (error, stdout, stderr) => {
+    if (error) {
+      console.error(`Error with LAUNCH/ID : ${error}`)
+      return
+    }
+    console.log(`App for id ${id} opened successfully: ${stdout}`)
+  })
 })
